@@ -11,7 +11,7 @@ export default function Home() {
   const [name, setName] = useState(undefined);
 
   const [events, setEvents] = useState<Array<string>>([]);
-  const eventTitleRef = useRef<HTMLInputElement>(null);
+  const eventFormRef = useRef<HTMLFormElement>(null);
 
   const fetchName = async () => {
     console.log("Fetching name");
@@ -33,8 +33,8 @@ export default function Home() {
     console.log("addEvent");
     event.preventDefault();
 
-    const title = eventTitleRef.current?.value;
-    console.log("addEvent title: ", title);
+    const title = eventFormRef.current?.["eventTitle"]?.value;
+    console.log("addEvent with title: ", title);
     if (title) {
       setEvents(currEvents => [...currEvents, title]);
     }
@@ -52,15 +52,14 @@ export default function Home() {
         <h1 className="text-3xl mt-8">Events for every day 🎉</h1>
 
         <Pane title="+ Create new event">
-          <form onSubmit={addEvent} className="bg-white px-12 py-4">
+          <form
+            onSubmit={addEvent}
+            ref={eventFormRef}
+            className="bg-white px-12 py-4"
+          >
             <p>Form goes here!</p>
             <p>Another line goes here!</p>
-            <input
-              name="eventTitle"
-              type={"text"}
-              placeholder="Event title"
-              ref={eventTitleRef}
-            />
+            <input name="eventTitle" type={"text"} placeholder="Event title" />
             <input
               name="eventDescription"
               type={"text"}
