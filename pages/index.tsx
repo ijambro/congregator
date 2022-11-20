@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 import PageHead from "../components/PageHead";
 import Header from "../components/Header";
 import Nav from "../components/Nav";
@@ -9,7 +9,10 @@ import Pane from "../components/Pane";
 
 export default function Home() {
   const [name, setName] = useState(undefined);
+
   const [events, setEvents] = useState<Array<string>>([]);
+  // const [eventTitle, setEventTitle] = useState<string>();
+  const eventTitleRef = useRef(null);
 
   const fetchName = async () => {
     console.log("Fetching name");
@@ -27,6 +30,17 @@ export default function Home() {
     })();
   }, []);
 
+  const addEvent = (event: FormEvent) => {
+    console.log("addEvent");
+    event.preventDefault();
+
+    const title = eventTitleRef.current?.value;
+    console.log("addEvent title: ", title);
+    if (title) {
+      setEvents(currEvents => [...currEvents, title]);
+    }
+  };
+
   return (
     <div>
       <PageHead />
@@ -39,53 +53,35 @@ export default function Home() {
         <h1 className="text-3xl mt-8">Events for every day 🎉</h1>
 
         <Pane title="+ Create new event">
-          <form className="bg-white px-12 py-4">
+          <form onSubmit={addEvent} className="bg-white px-12 py-4">
             <p>Form goes here!</p>
             <p>Another line goes here!</p>
-            <input name="eventTitle" type={"text"} placeholder="Event title" />
+            <input
+              name="eventTitle"
+              type={"text"}
+              placeholder="Event title"
+              ref={eventTitleRef}
+            />
             <input
               name="eventDescription"
               type={"text"}
               placeholder="Description"
             />
-            <Link href="/">
-              <button className="bg-pink-600 text-white p-4">
-                Create Event
-              </button>
-            </Link>
+            <button className="bg-pink-600 text-white p-4">Create Event</button>
           </form>
         </Pane>
 
         <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h2>Documentation &rarr;</h2>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h2>Learn &rarr;</h2>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/canary/examples"
-            className={styles.card}
-          >
-            <h2>Examples &rarr;</h2>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.card}
-          >
-            <h2>Deploy &rarr;</h2>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
+          {events.map(event => (
+            <a
+              key={event}
+              href="https://nextjs.org/docs"
+              className={styles.card}
+            >
+              <h2>{event}</h2>
+              <p>More details &rarr;</p>
+            </a>
+          ))}
         </div>
       </main>
 
