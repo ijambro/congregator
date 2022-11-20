@@ -1,5 +1,6 @@
 {
   "name": "congregator",
+  "description": "Congregator: Events for every day.  A Typescript, NextJS and TailwindCSS app running on Google Cloud App Engine and SQL.",
   "version": "0.1.0",
   "private": true,
   "scripts": {
