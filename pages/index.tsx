@@ -11,8 +11,7 @@ export default function Home() {
   const [name, setName] = useState(undefined);
 
   const [events, setEvents] = useState<Array<string>>([]);
-  // const [eventTitle, setEventTitle] = useState<string>();
-  const eventTitleRef = useRef(null);
+  const eventTitleRef = useRef<HTMLInputElement>(null);
 
   const fetchName = async () => {
     console.log("Fetching name");
