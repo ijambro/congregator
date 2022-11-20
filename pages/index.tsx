@@ -5,6 +5,7 @@ import PageHead from "../components/PageHead";
 import Header from "../components/Header";
 import Nav from "../components/Nav";
 import styles from "../styles/Home.module.css";
+import Pane from "../components/Pane";
 
 export default function Home() {
   const [name, setName] = useState(undefined);
@@ -34,15 +35,26 @@ export default function Home() {
 
       <Nav userName={name} isLoggedIn={true} />
 
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
+      <main className="flex flex-col items-center justify-items-start bg-gray-200">
+        <h1 className="text-3xl mt-8">Events for every day 🎉</h1>
 
-        <p className={styles.description}>
-          Get started by editing{" "}
-          <code className={styles.code}>pages/index.tsx</code>
-        </p>
+        <Pane title="+ Create new event">
+          <form className="bg-white px-12 py-4">
+            <p>Form goes here!</p>
+            <p>Another line goes here!</p>
+            <input name="eventTitle" type={"text"} placeholder="Event title" />
+            <input
+              name="eventDescription"
+              type={"text"}
+              placeholder="Description"
+            />
+            <Link href="/">
+              <button className="bg-pink-600 text-white p-4">
+                Create Event
+              </button>
+            </Link>
+          </form>
+        </Pane>
 
         <div className={styles.grid}>
           <a href="https://nextjs.org/docs" className={styles.card}>
