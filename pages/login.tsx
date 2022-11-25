@@ -4,6 +4,7 @@ import PageHead from "../components/PageHead";
 import Header from "../components/Header";
 import Link from "next/link";
 import Pane from "../components/Pane";
+import Button from "../components/Button";
 
 export default function Login() {
   const loginFormRef = useRef<HTMLFormElement>(null);
@@ -37,7 +38,7 @@ export default function Login() {
             <input name="email" type={"email"} placeholder="Email" />
             <input name="password" type={"password"} placeholder="Password" />
             {/* <Link href="/"> */}
-            <button className="bg-pink-600 text-white p-4">Login</button>
+            <Button label="Login" />
             {/* </Link> */}
           </form>
         </Pane>

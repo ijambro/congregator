@@ -6,6 +6,7 @@ import Header from "../components/Header";
 import Nav from "../components/Nav";
 import styles from "../styles/Home.module.css";
 import Pane from "../components/Pane";
+import Button from "../components/Button";
 
 export default function Home() {
   const [name, setName] = useState(undefined);
@@ -65,7 +66,7 @@ export default function Home() {
               type={"text"}
               placeholder="Description"
             />
-            <button className="bg-pink-600 text-white p-4">Create Event</button>
+            <Button label="Create Event" />
           </form>
         </Pane>
 
