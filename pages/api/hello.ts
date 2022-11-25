@@ -15,8 +15,13 @@
 
 import { NextRequest } from "next/server";
 
-// Cloudflare requires Next.js Edge API Routes: https://nextjs.org/docs/api-routes/edge-api-routes
+// Cloudflare requires Next.js Edge API Routes:
+//  https://developers.cloudflare.com/pages/framework-guides/deploy-a-nextjs-site/
+//  https://nextjs.org/docs/api-routes/edge-api-routes
 export default async function handler(req: NextRequest) {
+  // const { searchParams } = new URL(req.url);
+  // const email = searchParams.get("email");
+
   return new Response(JSON.stringify({ name: "Cloudflare Worker" }), {
     status: 200,
     headers: {
