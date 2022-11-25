@@ -2,7 +2,7 @@ export declare interface ButtonProps {
   label: string;
 }
 
-export default function (props: ButtonProps) {
+export default function Button(props: ButtonProps) {
   const { label } = props;
 
   return (
