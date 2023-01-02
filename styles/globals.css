@@ -18,9 +18,10 @@ a {
 input {
   /* margin-left: 20px; */
   /* margin-right: 20px; */
-  margin-bottom: 20px;
-  padding: 10px;
-  min-height: 20px;
+  margin-bottom: 2em;
+  margin-right: 2em;
+  padding: 1em;
+  min-height: 1em;
 
   border: 1px solid lightgray;
   border-bottom-right-radius: 25px;

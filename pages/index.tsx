@@ -1,34 +1,41 @@
 import Image from "next/image";
 import Link from "next/link";
-import { FormEvent, useEffect, useRef, useState } from "react";
+import { FormEvent, useContext, useEffect, useRef, useState } from "react";
 import PageHead from "../components/PageHead";
 import Header from "../components/Header";
 import Nav from "../components/Nav";
 import styles from "../styles/Home.module.css";
 import Pane from "../components/Pane";
 import Button from "../components/Button";
+import { AuthContext } from "../context/AuthProvider";
+// import { query } from "../utils/data-helper";
 
-export default function Home() {
-  const [name, setName] = useState(undefined);
+export default function Home(/*props: any*/) {
+  // console.log("Rendering Home with server side props", props);
+
+  const authContext = useContext(AuthContext);
+  console.log("Rendering Home using authContext", authContext);
+
+  // const [name, setName] = useState(undefined);
 
   const [events, setEvents] = useState<Array<string>>([]);
   const eventFormRef = useRef<HTMLFormElement>(null);
 
-  const fetchName = async () => {
-    console.log("Fetching name");
-    const res = await fetch("/api/hello");
-    console.log("Fetched name", res);
-    const json = await res.json();
-    console.log("Fetched name JSON", json);
-    return json.name;
-  };
+  // const fetchName = async () => {
+  //   console.log("Fetching name");
+  //   const res = await fetch("/api/hello");
+  //   console.log("Fetched name", res);
+  //   const json = await res.json();
+  //   console.log("Fetched name JSON", json);
+  //   return json.name;
+  // };
 
-  useEffect(() => {
-    (async () => {
-      const fetchedName = await fetchName();
-      setName(fetchedName);
-    })();
-  }, []);
+  // useEffect(() => {
+  //   (async () => {
+  //     const fetchedName = await fetchName();
+  //     setName(fetchedName);
+  //   })();
+  // }, []);
 
   const addEvent = (event: FormEvent) => {
     console.log("addEvent");
@@ -47,7 +54,10 @@ export default function Home() {
 
       <Header />
 
-      <Nav userName={name} isLoggedIn={true} />
+      <Nav
+        userName={authContext.authenticatedUser?.firstName}
+        isLoggedIn={true}
+      />
 
       <main className="flex flex-col items-center justify-items-start bg-gray-200">
         <h1 className="text-3xl mt-8">Events for every day 🎉</h1>
@@ -99,3 +109,13 @@ export default function Home() {
     </div>
   );
 }
+
+// Experimented with server-side props querying Postgres data.
+// This works locally, but NOT on Cloudflare Pages because server-side code and APIs use Edge Runtime.
+// This MAY work on Vercel, but haven't tried that yet.
+// export async function getServerSideProps(context) {
+//   console.log("[getServerSideProps] Querying...");
+//   const result = await query("SELECT * FROM transport");
+//   console.log("Query result", result);
+//   return { props: { rows: result.rows, rowCount: result.rowCount } };
+// }
