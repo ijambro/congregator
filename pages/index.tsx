@@ -8,18 +8,26 @@ import styles from "../styles/Home.module.css";
 import Pane from "../components/Pane";
 import Button from "../components/Button";
 import { AuthContext } from "../context/AuthProvider";
+import { DataContext } from "../context/DataProvider";
 // import { query } from "../utils/data-helper";
 
 export default function Home(/*props: any*/) {
   // console.log("Rendering Home with server side props", props);
 
   const authContext = useContext(AuthContext);
-  console.log("Rendering Home using authContext", authContext);
+  const dataContext = useContext(DataContext);
+  console.log(
+    "Rendering Home for authenticatedUser",
+    authContext.authenticatedUser,
+    "with events",
+    dataContext.events
+  );
 
   // const [name, setName] = useState(undefined);
 
-  const [events, setEvents] = useState<Array<string>>([]);
   const eventFormRef = useRef<HTMLFormElement>(null);
+
+  // TODO: Fetch real events from a server API
 
   // const fetchName = async () => {
   //   console.log("Fetching name");
@@ -43,8 +51,17 @@ export default function Home(/*props: any*/) {
 
     const title = eventFormRef.current?.["eventTitle"]?.value;
     console.log("addEvent with title: ", title);
-    if (title) {
-      setEvents(currEvents => [...currEvents, title]);
+    if (title && authContext.authenticatedUser) {
+      const nextEventId = dataContext.events.length
+        ? dataContext.events[dataContext.events.length - 1].id + 1
+        : 1000;
+      dataContext.addEvent({
+        id: nextEventId,
+        createdDate: new Date(),
+        updatedDate: new Date(),
+        userId: authContext.authenticatedUser?.id,
+        name: title
+      });
     }
   };
 
@@ -61,6 +78,22 @@ export default function Home(/*props: any*/) {
 
       <main className="flex flex-col items-center justify-items-start bg-gray-200">
         <h1 className="text-3xl mt-8">Events for every day 🎉</h1>
+
+        {dataContext.events.map(event => (
+          <Pane title={"🎉 " + (event.name || "Untitled Event")}>
+            <div className="bg-white px-12 py-4">
+              <h2 className="text-pink-600 text-3xl">{event.name}</h2>
+              <code>{JSON.stringify(event)}</code>
+              <Link
+                key={event.id}
+                href={"/events/" + event.id}
+                className="text-blue-500"
+              >
+                <p>More details &rarr;</p>
+              </Link>
+            </div>
+          </Pane>
+        ))}
 
         <Pane title="+ Create new event">
           <form
@@ -79,19 +112,6 @@ export default function Home(/*props: any*/) {
             <Button label="Create Event" />
           </form>
         </Pane>
-
-        <div className={styles.grid}>
-          {events.map(event => (
-            <a
-              key={event}
-              href="https://nextjs.org/docs"
-              className={styles.card}
-            >
-              <h2>{event}</h2>
-              <p>More details &rarr;</p>
-            </a>
-          ))}
-        </div>
       </main>
 
       <footer className={styles.footer}>
