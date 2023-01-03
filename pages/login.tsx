@@ -6,10 +6,17 @@ import Link from "next/link";
 import Pane from "../components/Pane";
 import Button from "../components/Button";
 import { AuthContext } from "../context/AuthProvider";
+import { DataContext } from "../context/DataProvider";
 
 export default function Login() {
   const authContext = useContext(AuthContext);
-  console.log("Rendering Login using authContext", authContext);
+  const dataContext = useContext(DataContext);
+  console.log(
+    "Rendering Login using authenticatedUser",
+    authContext.authenticatedUser,
+    "all users",
+    dataContext.users
+  );
 
   const loginFormRef = useRef<HTMLFormElement>(null);
   const [loginError, setLoginError] = useState<string | null>(null);
@@ -25,17 +32,13 @@ export default function Login() {
       console.log("Logging in!");
       setLoginError(null);
 
-      //TODO: Authenticate for real!
-      const authSuccess = true;
+      //TODO: Authenticate against a server API for real!
+      const foundMatchingUser = dataContext.users.find(
+        u => u.email === email && u.passwordHash === password
+      );
 
-      if (authSuccess) {
-        authContext.setAuthenticatedUser({
-          id: 1,
-          email: email,
-          firstName: "First",
-          lastName: "Last",
-          passwordHash: password
-        });
+      if (foundMatchingUser) {
+        authContext.setAuthenticatedUser(foundMatchingUser);
         Router.push("/");
       } else {
         setLoginError("Incorrect email or password");
