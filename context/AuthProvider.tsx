@@ -1,5 +1,5 @@
 import React, { createContext, ReactNode, useState } from "react";
-import User from "../model/User";
+import { User } from "../model/User";
 
 interface IAuthContext {
   authenticatedUser?: User;
