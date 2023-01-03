@@ -1,6 +1,6 @@
 import { Event } from "./Event";
 
-export const events: Event[] = [
+export const dummyEvents: Event[] = [
   {
     id: 1000,
     createdDate: new Date("2022-10-25T00:00:00-05:00"),

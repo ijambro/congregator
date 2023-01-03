@@ -1,6 +1,6 @@
 import { Comment } from "./Comment";
 
-export const comments: Comment[] = [
+export const dummyComments: Comment[] = [
   {
     id: 10000,
     createdDate: new Date("2022-10-22T12:00:00-04:00"),

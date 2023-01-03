@@ -1,6 +1,6 @@
 import { User } from "./User";
 
-export const users: User[] = [
+export const dummyUsers: User[] = [
   {
     id: 1,
     createdDate: new Date(),
