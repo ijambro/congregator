@@ -80,7 +80,7 @@ export default function Home(/*props: any*/) {
         <h1 className="text-3xl mt-8">Events for every day 🎉</h1>
 
         {dataContext.events.map(event => (
-          <Pane title={"🎉 " + (event.name || "Untitled Event")}>
+          <Pane key={event.id} title={"🎉 " + (event.name || "Untitled Event")}>
             <div className="bg-white px-12 py-4">
               <h2 className="text-pink-600 text-3xl">{event.name}</h2>
               <code>{JSON.stringify(event)}</code>
