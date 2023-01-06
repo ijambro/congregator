@@ -99,21 +99,14 @@ export default function Login() {
           </form>
         </Pane>
 
+        {/* Default renderer ('svg') works fine locally, but doesn't render most layers when served by Cloudflare Pages.
+      It gives error: SVG <path> attribute d: Expected moveto path command 'M' or 'm'
+      Rendering as 'canvas' seems to solve this! */}
         <Player
           autoplay
-          loop={false}
-          keepLastFrame
+          loop
           renderer={"canvas"}
           src="/crocodile-walking-edited-colors.json"
-          style={{ height: "300px", width: "300px" }}
-        />
-
-        <Player
-          autoplay
-          loop={false}
-          keepLastFrame
-          renderer={"svg"}
-          src="https://assets3.lottiefiles.com/packages/lf20_UJNc2t.json"
           style={{ height: "300px", width: "300px" }}
         />
       </main>
@@ -121,10 +114,6 @@ export default function Login() {
       <footer className="flex place-content-center">
         <div>
           <p>Built with ❤ in Durham</p>
-          <p>
-            Powered by{" "}
-            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-          </p>
         </div>
       </footer>
     </div>
