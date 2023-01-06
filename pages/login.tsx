@@ -8,6 +8,7 @@ import Button from "../components/Button";
 import { AuthContext } from "../context/AuthProvider";
 import { DataContext } from "../context/DataProvider";
 import { Player } from "@lottiefiles/react-lottie-player";
+import Loading from "../components/Loading";
 
 export default function Login() {
   const authContext = useContext(AuthContext);
@@ -21,10 +22,12 @@ export default function Login() {
 
   const loginFormRef = useRef<HTMLFormElement>(null);
   const [loginError, setLoginError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const onLogin = (event: FormEvent) => {
     console.log("onLogin");
     event.preventDefault();
+    setIsLoading(true);
 
     const email = loginFormRef.current?.["email"]?.value;
     const password = loginFormRef.current?.["password"]?.value;
@@ -47,6 +50,8 @@ export default function Login() {
     } else {
       setLoginError("Email and password are required");
     }
+
+    setIsLoading(false);
   };
 
   return (
@@ -56,6 +61,8 @@ export default function Login() {
       <Header />
 
       <main className={"flex flex-col items-center bg-gray-200"}>
+        <Loading active={isLoading} />
+
         <Pane title="👤 Login" bigVerticalMargin>
           <form
             onSubmit={onLogin}
