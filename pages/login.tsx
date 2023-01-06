@@ -27,7 +27,6 @@ export default function Login() {
   const onLogin = (event: FormEvent) => {
     console.log("onLogin");
     event.preventDefault();
-    setIsLoading(true);
 
     const email = loginFormRef.current?.["email"]?.value;
     const password = loginFormRef.current?.["password"]?.value;
@@ -35,6 +34,7 @@ export default function Login() {
     if (email && password) {
       console.log("Logging in!");
       setLoginError(null);
+      setIsLoading(true);
 
       //TODO: Authenticate against a server API for real!
       const foundMatchingUser = dataContext.users.find(
@@ -43,15 +43,21 @@ export default function Login() {
 
       if (foundMatchingUser) {
         authContext.setAuthenticatedUser(foundMatchingUser);
-        Router.push("/");
+        // Simulate a delay to show the Loading animation
+        setTimeout(() => {
+          setIsLoading(false);
+          Router.push("/");
+        }, 3000);
       } else {
-        setLoginError("Incorrect email or password");
+        // Simulate a delay to show the Loading animation
+        setTimeout(() => {
+          setIsLoading(false);
+          setLoginError("Incorrect email or password");
+        }, 3000);
       }
     } else {
       setLoginError("Email and password are required");
     }
-
-    setIsLoading(false);
   };
 
   return (
