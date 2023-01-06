@@ -1,4 +1,5 @@
 import { FormEvent, useContext, useRef, useState } from "react";
+import Image from "next/image";
 import Router from "next/router";
 import PageHead from "../components/PageHead";
 import Header from "../components/Header";
@@ -104,7 +105,24 @@ export default function Login() {
           src="/crocodile-walking-edited-colors.json"
           style={{ height: "300px", width: "300px" }}
         />
+
+        <Player
+          autoplay
+          loop
+          src="https://assets3.lottiefiles.com/packages/lf20_UJNc2t.json"
+          style={{ height: "300px", width: "300px" }}
+        />
       </main>
+
+      <footer className="flex place-content-center">
+        <div>
+          <p>Built with ❤ in Durham</p>
+          <p>
+            Powered by{" "}
+            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
+          </p>
+        </div>
+      </footer>
     </div>
   );
 }

@@ -1,6 +1,6 @@
+import { FormEvent, useContext, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { FormEvent, useContext, useEffect, useRef, useState } from "react";
 import PageHead from "../components/PageHead";
 import Header from "../components/Header";
 import Nav from "../components/Nav";
@@ -115,6 +115,7 @@ export default function Home(/*props: any*/) {
       </main>
 
       <footer className={styles.footer}>
+        <p>Built with ❤ in Durham</p>
         <a
           href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
           target="_blank"
