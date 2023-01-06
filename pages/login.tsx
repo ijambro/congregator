@@ -101,14 +101,18 @@ export default function Login() {
 
         <Player
           autoplay
-          loop
+          loop={false}
+          keepLastFrame
+          renderer={"canvas"}
           src="/crocodile-walking-edited-colors.json"
           style={{ height: "300px", width: "300px" }}
         />
 
         <Player
           autoplay
-          loop
+          loop={false}
+          keepLastFrame
+          renderer={"svg"}
           src="https://assets3.lottiefiles.com/packages/lf20_UJNc2t.json"
           style={{ height: "300px", width: "300px" }}
         />
