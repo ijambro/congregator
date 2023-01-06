@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Tailwind color scheme notes:
+  green-500: #22C55E
+  orange-500: #F97316
+  pink-600: #DB2777
+*/
+
 html,
 body {
   padding: 0;

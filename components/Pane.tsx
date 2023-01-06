@@ -9,7 +9,7 @@ export declare interface PaneProps {
 export default function Pane(props: PaneProps) {
   const { children, title, bigVerticalMargin = false } = props;
 
-  const mVert = bigVerticalMargin ? "my-24" : "my-4";
+  const mVert = bigVerticalMargin ? "my-16" : "my-4";
 
   return (
     <div

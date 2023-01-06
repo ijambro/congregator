@@ -7,6 +7,7 @@ import Pane from "../components/Pane";
 import Button from "../components/Button";
 import { AuthContext } from "../context/AuthProvider";
 import { DataContext } from "../context/DataProvider";
+import { Player } from "@lottiefiles/react-lottie-player";
 
 export default function Login() {
   const authContext = useContext(AuthContext);
@@ -54,7 +55,7 @@ export default function Login() {
 
       <Header />
 
-      <main className={"flex place-content-center bg-gray-200"}>
+      <main className={"flex flex-col items-center bg-gray-200"}>
         <Pane title="👤 Login" bigVerticalMargin>
           <form
             onSubmit={onLogin}
@@ -66,11 +67,9 @@ export default function Login() {
             <input name="email" type={"email"} placeholder="Email" />
             <input name="password" type={"password"} placeholder="Password" />
 
-            {/* <Link href="/"> */}
             <Button label="Login" />
-            {/* </Link> */}
 
-            <div className="text-gray-300 whitespace-nowrap">
+            <div className="text-gray-300 ">
               <Link href="/register" className="text-blue-500">
                 Create Account
               </Link>
@@ -85,6 +84,13 @@ export default function Login() {
             </div>
           </form>
         </Pane>
+
+        <Player
+          autoplay
+          loop
+          src="/crocodile-walking-edited-colors.json"
+          style={{ height: "300px", width: "300px" }}
+        />
       </main>
     </div>
   );
